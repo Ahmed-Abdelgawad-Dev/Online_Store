@@ -8,4 +8,5 @@ from .models import MyUser
 class UserViewSet(viewsets.ModelViewSet):
     queryset = MyUser.objects.all()
     serializer_class = UserSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    # permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [permissions.AllowAny]

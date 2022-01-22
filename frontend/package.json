@@ -8,6 +8,8 @@
     "format": "prettier --write \"src/**/*.{ts,tsx}\""
   },
   "dependencies": {
+    "@types/axios": "^0.14.0",
+    "axios": "^0.25.0",
     "react": "^17.0.0",
     "react-dom": "^17.0.0"
   },
