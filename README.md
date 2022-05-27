@@ -1,1 +1,2 @@
-fullstack starter code uses Django & React.
+# Sprints_Online_Store
+E-Commerce Web Site
