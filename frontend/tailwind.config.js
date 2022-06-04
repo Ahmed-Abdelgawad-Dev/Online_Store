@@ -4,7 +4,7 @@ module.exports = {
     "./components/**/*.{html,js, jsx}",
     "./index.html",
     "./public/index.html",
-    "./src/**/*.{html,js}",
+    "./src/**/*.{html,js, jsx}",
   ],
   plugins: [],
   corePlugins: {

@@ -1,15 +1,16 @@
-import "./App.css";
+import { Container } from "react-bootstrap";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
+import HomePage from "./pages/HomePage";
 
 function App() {
   return (
     <div className="App">
       <Header />
-      <main>
-        <div>
-          <h5>content</h5>
-        </div>
+      <main className="py-4">
+        <Container>
+          <HomePage />
+        </Container>
       </main>
       <Footer />
     </div>
