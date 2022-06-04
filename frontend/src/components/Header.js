@@ -5,7 +5,9 @@ function Header() {
   return (
     <Navbar variant="dark" bg="gray-800" expand="lg">
       <Container fluid>
-        <Navbar.Brand href="/">SprinShop</Navbar.Brand>
+        <Navbar.Brand href="/">
+          <span className="tw-animate-pulse tw-fw-semibold ">SprintsShop</span>
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav

@@ -1,10 +1,11 @@
 import React from "react";
 import { Card } from "react-bootstrap";
+import Rating from "./Rating";
 
 export default function Product({ product }) {
   return (
     <>
-      <Card className="my-2 p-3" style={{ width: "14rem" }}>
+      <Card className="m-2 p-3 " style={{ width: "14rem" }}>
         <Card.Link href={`product/${product._id}`}>
           <Card.Img variant="top" src={product.image} />
         </Card.Link>
@@ -17,9 +18,13 @@ export default function Product({ product }) {
           <Card.Text as="div" className="my-2">
             {product.description}
           </Card.Text>
-          <Card.Link as="div">{product.description}</Card.Link>
           <Card.Text as="div">
-            {product.rating} from {product.reviewsCount}
+            <Rating
+              value={product.rating}
+              text={`${
+                product.reviewsCount ? product.reviewsCount : "No"
+              } reviews`}
+            />
           </Card.Text>
           <Card.Text className="my-2">
             <h3>
