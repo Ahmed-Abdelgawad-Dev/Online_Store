@@ -13,7 +13,7 @@ export default function HomePage() {
           <Row>
             {products.map((product) => (
               <Col key={product._id}>
-                <div class="d-flex justify-content-start">
+                <div className="d-flex justify-content-start">
                   <Product product={product} />
                 </div>
               </Col>

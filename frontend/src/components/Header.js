@@ -1,12 +1,16 @@
 import React from "react";
 import { Navbar, Container, Nav } from "react-bootstrap";
-
+import { Link as LinkRouter } from "react-router-dom";
 function Header() {
   return (
     <Navbar variant="dark" bg="gray-800" expand="lg">
       <Container fluid>
-        <Navbar.Brand href="/">
-          <span className="tw-animate-pulse tw-fw-semibold ">SprintsShop</span>
+        <Navbar.Brand>
+          <LinkRouter to="/">
+            <span className="tw-animate-pulse tw-fw-semibold ">
+              SprintsShop
+            </span>
+          </LinkRouter>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
@@ -15,16 +19,21 @@ function Header() {
             style={{ maxHeight: "100px" }}
             navbarScroll
           >
-            <Nav.Link href="/cart">
-              {" "}
-              <i className="fas fa-shopping-cart" aria-hidden="true"></i> Cart
+            <Nav.Link as="div">
+              <LinkRouter to="/cart">
+                {" "}
+                <i className="fas fa-shopping-cart" aria-hidden="true"></i> Cart
+              </LinkRouter>
             </Nav.Link>
-            <Nav.Link href="/login">
-              {" "}
-              <i className="fas fa-users" aria-hidden="true"></i> Login
+            <Nav.Link as="div">
+              <LinkRouter to="/login">
+                {" "}
+                <i className="fas fa-users" aria-hidden="true"></i> Login
+              </LinkRouter>
             </Nav.Link>
-            <Nav.Link href="/products">Products</Nav.Link>
-            <Nav.Link href="/about">About</Nav.Link>
+            <Nav.Link as="div">
+              <LinkRouter to="/about">About</LinkRouter>
+            </Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>

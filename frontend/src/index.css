@@ -1,6 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+body {
+    background-color: rgb(240, 240, 240);
+}
+
 
 /* Pushing footer down */
 
