@@ -6,9 +6,13 @@ import { Link } from "react-router-dom";
 export default function Product({ product }) {
   return (
     <>
-      <Card className="my-2 px-3 pb-0 pt-2" style={{ width: "14rem" }}>
+      <div className="card my-2 px-3 pb-0 pt-2" style={{ width: "14rem" }}>
         <Link to={`product/${product._id}`}>
-          <Card.Img variant="top" src={product.image} />
+          <img
+            className="card-image-top"
+            src={product?.image}
+            alt={product.name}
+          />
         </Link>
 
         <Card.Body>
@@ -35,7 +39,7 @@ export default function Product({ product }) {
             </h3>
           </Card.Text>
         </Card.Body>
-      </Card>
+      </div>
     </>
   );
 }

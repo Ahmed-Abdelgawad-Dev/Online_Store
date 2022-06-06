@@ -7,7 +7,7 @@ export const products = [
     brand: "sonny",
     category: "cams",
     price: 269.99,
-    stockCount: 20,
+    stockCount: 22,
     rating: 5,
     reviewsCount: 50,
   },
