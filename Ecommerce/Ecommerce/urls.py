@@ -1,13 +1,10 @@
+from django.conf.urls.static import static
+from django.conf import settings
 from django.contrib import admin
 from django.urls import path, include
-
-
-# def index_view(request):
-#     return render(request, 'build/index.html')
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('api.urls')),
-    # path('', index_view, name='index'),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

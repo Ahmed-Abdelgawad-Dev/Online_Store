@@ -117,7 +117,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+MEDIA_URL = '/images/'
+STATICFILES_DIRS = [BASE_DIR / 'static']
+
+MEDIA_ROOT = 'static/images'
 
 """React in Django Using Cross-Cors-Origin"""
 # CSRF_COOKIE_SAMESITE = 'Lax'
@@ -150,3 +154,4 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'users.CustomUser'
+CORS_ALLOW_ALL_ORIGINS = True
