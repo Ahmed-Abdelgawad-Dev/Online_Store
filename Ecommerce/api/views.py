@@ -6,7 +6,7 @@ from .serializers import ProductSerializer
 
 @api_view()
 def info(request):
-    return Response({"products": "Get all products", "product": "Get one product"})
+    return Response({"/products": "Get all products", "/products": "Get one product"})
 
 
 @api_view(['GET'])
