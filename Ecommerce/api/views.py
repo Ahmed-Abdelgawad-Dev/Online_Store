@@ -11,16 +11,14 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     def validate(self, attrs):
         data = super().validate(attrs)
         data['email'] = self.user.email
+        data['is_staff'] = self.user.is_staff
+        data['is_active'] = self.user.is_active
+        data['date_joined'] = self.user.date_joined
         return data
 
 
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
-
-
-@api_view()
-def info(request):
-    return Response({"/products": "Get all products", "/products": "Get one product"})
 
 
 @api_view(['GET'])
