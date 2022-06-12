@@ -1,14 +1,20 @@
+from abc import abstractclassmethod
 from math import fabs
 from django.db import models
 from django.conf import settings
 
 
-class Product(models.Model):
+class BaseAbstractModel(models.Model):
     _id = models.AutoField(primary_key=True, editable=False)
+    name = models.CharField(max_length=150, null=False, blank=False)
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                              on_delete=models.SET_NULL, null=True)
-    name = models.CharField(max_length=150)
 
+    class Meta:
+        abstract = True
+
+
+class Product(BaseAbstractModel):
     brand = models.CharField(max_length=150, null=True, blank=True)
     category = models.CharField(max_length=150, null=True, blank=True)
     images = models.ImageField(blank=True)
@@ -29,13 +35,9 @@ class Product(models.Model):
         ordering = ['-created']
 
 
-class Review(models.Model):
-    _id = models.AutoField(primary_key=True, editable=False)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL,
-                             on_delete=models.SET_NULL, null=True)
+class Review(BaseAbstractModel):
     product = models.ForeignKey(Product,
                                 on_delete=models.SET_NULL, null=True)
-    name = models.CharField(max_length=150)
     rating = models.IntegerField(null=True, blank=True, default=0)
     comment = models.CharField(max_length=150, blank=True, null=True)
 
@@ -43,10 +45,8 @@ class Review(models.Model):
         return str(self.rating)
 
 
-class Order(models.Model):
-    _id = models.AutoField(primary_key=True, editable=False)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL,
-                             on_delete=models.SET_NULL, null=True)
+class Order(BaseAbstractModel):
+
     paymentMethod = models.CharField(max_length=100)
     taxPrice = models.DecimalField(
         max_digits=5, decimal_places=2, null=True, blank=True)
@@ -68,13 +68,11 @@ class Order(models.Model):
         ordering = ['-created']
 
 
-class OrderItem(models.Model):
-    _id = models.AutoField(primary_key=True, editable=False)
+class OrderItem(BaseAbstractModel):
     product = models.ForeignKey(Product,
                                 on_delete=models.SET_NULL, null=True)
     order = models.ForeignKey(Order,
                               on_delete=models.SET_NULL, null=True)
-    name = models.CharField(max_length=100, null=True, blank=True)
     quantity = models.IntegerField(null=True, blank=True, default=0)
     price = models.DecimalField(
         max_digits=5, decimal_places=2, null=True, blank=True)
@@ -83,8 +81,7 @@ class OrderItem(models.Model):
         return str(self.name)
 
 
-class ShippingAddress(models.Model):
-    _id = models.AutoField(primary_key=True, editable=False)
+class ShippingAddress(BaseAbstractModel):
     order = models.OneToOneField(Order,
                                  on_delete=models.CASCADE, null=True)
     address = models.CharField(max_length=100, null=True, blank=True)

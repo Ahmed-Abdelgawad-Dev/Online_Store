@@ -3,23 +3,6 @@ from rest_framework.response import Response
 from .models import Product
 from .serializers import ProductSerializer
 
-from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-from rest_framework_simplejwt.views import TokenObtainPairView
-
-
-class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
-    def validate(self, attrs):
-        data = super().validate(attrs)
-        data['email'] = self.user.email
-        data['is_staff'] = self.user.is_staff
-        data['is_active'] = self.user.is_active
-        data['date_joined'] = self.user.date_joined
-        return data
-
-
-class MyTokenObtainPairView(TokenObtainPairView):
-    serializer_class = MyTokenObtainPairSerializer
-
 
 @api_view(['GET'])
 def products(request):
