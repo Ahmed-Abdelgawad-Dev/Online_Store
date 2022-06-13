@@ -4,8 +4,10 @@ from . import views
 
 
 urlpatterns = [
-    # JWT
+    # Users' Stuff
     path('login/', views.MyTokenObtainPairView.as_view(),
          name='token_obtain_pair'),
     path('get_user/', views.get_user, name="get_user"),
+    path('get_users/', views.get_users, name="get_users"),
+
 ]
