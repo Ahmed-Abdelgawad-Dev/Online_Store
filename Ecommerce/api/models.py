@@ -1,11 +1,9 @@
-from abc import abstractclassmethod
-from math import fabs
+from PIL import Image
 from django.db import models
 from django.conf import settings
 
-"""An abstract model to inherit from the shared fields"""
 
-
+# An abstract model to inherit from the shared fields
 class BaseAbstractModel(models.Model):
     _id = models.AutoField(primary_key=True, editable=False)
     name = models.CharField(max_length=150, null=False, blank=False)
@@ -35,6 +33,23 @@ class Product(BaseAbstractModel):
 
     class Meta:
         ordering = ['-created']
+
+
+class Thumbnails(models.Model):
+    product = models.ForeignKey(
+        Product, on_delete=models.CASCADE, related_name='Thumbnails')
+    photo = models.ImageField()
+
+    # Resizing the Thumbnals' images to fit the standards | Requirements
+    def save(self, *args, **kwargs):
+        super(Thumbnails, self).save(*args, **kwargs)
+        img = Image.open(self.photo.path)
+        if img.height > 1125 or img.width > 1125:
+            img.thumbnail((370, 370))
+        img.save(self.photo.path, quality=70, optimize=True)
+
+    def __str__(self):
+        return str(self.product.name)
 
 
 class Review(BaseAbstractModel):

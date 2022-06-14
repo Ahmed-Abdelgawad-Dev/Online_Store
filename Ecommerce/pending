@@ -1,0 +1,15 @@
+Order:
+    - Add to cart functionality
+    - Get order
+    - post order
+
+Product:
+    - 5 images for the product
+    - featured => Boolean
+    - on_sale => Boolean 
+    - sale number(1-100)
+    - free_shipping Boolean
+
+Shipping Address:
+    - telephone
+
