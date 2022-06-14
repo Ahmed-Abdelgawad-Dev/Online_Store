@@ -26,5 +26,6 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         return self.email
 
     class Meta:
+        """Humanize the CustomUser's name"""
         verbose_name = _('user')
         verbose_name_plural = _('users')

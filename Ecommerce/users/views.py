@@ -14,6 +14,7 @@ from rest_framework.status import HTTP_404_NOT_FOUND
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
+# User Object
 def get_user(request):
     user = request.user
     serialized_user = CustomUserSerializer(user, many=False)
@@ -22,6 +23,7 @@ def get_user(request):
 
 @api_view(['GET'])
 @permission_classes([IsAdminUser])
+# Users' list
 def get_users(request):
     users = CustomUser.objects.all()
     serialized_users = CustomUserSerializer(users, many=True)
@@ -31,6 +33,7 @@ def get_users(request):
 @api_view(['POST'])
 def register_user(request):
     user_data = request.data
+    # Register a new user & Hash the provided new password
     try:
         created_user = CustomUser.objects.create(
             email=user_data['email'],
@@ -42,10 +45,14 @@ def register_user(request):
             created_user, many=False)
         return Response(serialized_user.data)
     except:
-        return Response({"Attention": "The username is already existed, please choose a nother username"}, HTTP_404_NOT_FOUND)
+        MSG = {
+            "Attention": "The username is already existed, please choose a nother username"}
+        return Response(MSG, HTTP_404_NOT_FOUND)
 
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+    """Automated Method to inject whatever Provided in user's items """
+
     def validate(self, attrs):
         data = super().validate(attrs)
         serialized_user = CustomUserSerializerWithToken(self.user).data

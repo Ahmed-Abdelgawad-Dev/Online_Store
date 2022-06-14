@@ -6,6 +6,7 @@ class CustomUserCreationForm(UserCreationForm):
     class Meta:
         model = CustomUser
         # fields = ('email', 'name',)
+        """__all__ will be changed later for security reasons"""
         fields = '__all__'
 
 
@@ -13,4 +14,5 @@ class CustomUserChangeForm(UserChangeForm):
     class Meta:
         model = CustomUser
         # fields = ('email', 'name',)
+        """__all__ will be changed later for security reasons"""
         fields = '__all__'
