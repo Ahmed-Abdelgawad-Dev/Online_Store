@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     'rest_framework_simplejwt',
+    'phonenumber_field',
     # My Apps
     'api.apps.ApiConfig',
     'users.apps.UsersConfig',

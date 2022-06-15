@@ -1,9 +1,14 @@
 from PIL import Image
 from django.db import models
 from django.conf import settings
+from django.core.validators import MaxValueValidator, MinValueValidator
+from phonenumber_field.modelfields import PhoneNumberField
+"""
+- Some fields are camelCase as per Front-end team request
+
+- An abstract model to inherit from i/of DRY"""
 
 
-# An abstract model to inherit from the shared fields
 class BaseAbstractModel(models.Model):
     _id = models.AutoField(primary_key=True, editable=False)
     name = models.CharField(max_length=150, null=False, blank=False)
@@ -19,11 +24,19 @@ class Product(BaseAbstractModel):
     category = models.CharField(max_length=150, null=True, blank=True)
     images = models.ImageField(blank=True)
     description = models.TextField(max_length=150)
-    rating = models.DecimalField(
-        max_digits=5, decimal_places=2, null=True, blank=True)
+
+    rating = models.PositiveIntegerField(
+        default=1, validators=[MinValueValidator(1), MaxValueValidator(5)])
     reviewsCount = models.IntegerField(null=True, blank=True, default=0)
     price = models.DecimalField(
         max_digits=5, decimal_places=2, null=True, blank=True)
+    featured = models.BooleanField(default=False)
+    freeShipping = models.BooleanField(default=False)
+    onSale = models.BooleanField(default=False)
+    saleNumber = models.IntegerField(default=0, validators=[
+        MaxValueValidator(100000000000000000000000000000000),
+        MinValueValidator(0)
+    ])
     stockCount = models.IntegerField(null=True, blank=True, default=0)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -106,6 +119,7 @@ class ShippingAddress(BaseAbstractModel):
     country = models.CharField(max_length=100, null=True, blank=True)
     shippingPrice = models.DecimalField(
         max_digits=5, decimal_places=2, null=True, blank=True)
+    telephone = PhoneNumberField(blank=True)
 
     def __str__(self):
         return str(self.address)

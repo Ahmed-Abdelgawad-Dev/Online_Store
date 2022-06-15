@@ -4,12 +4,12 @@ Order:
     - post order
 
 Product:
-    - 5 images for the product
-    - featured => Boolean
-    - on_sale => Boolean 
-    - sale number(1-100)
-    - free_shipping Boolean
+    - Multible Thumbnails for the product (Done)
+    - featured => Boolean (Done)
+    - on_sale => Boolean (Done)
+    - sale number(1-100) (Done)
+    - free_shipping Boolean (Done)
 
 Shipping Address:
-    - telephone
+    - telephone (Done)
 
