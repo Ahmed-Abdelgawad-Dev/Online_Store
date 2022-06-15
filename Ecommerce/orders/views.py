@@ -1,6 +1,5 @@
-from urllib import response
-from django.http import Http404
-from .models import CustomUser, Order, ShippingAddress
+
+from .models import Order, ShippingAddress
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
@@ -10,6 +9,7 @@ from rest_framework.status import HTTP_404_NOT_FOUND
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
+# To be completed later
 def add_order_items(request):
     user = request.user
     data = request.data

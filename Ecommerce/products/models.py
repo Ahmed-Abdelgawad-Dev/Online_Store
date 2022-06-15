@@ -55,12 +55,18 @@ class Product(BaseAbstractModel):
         ordering = ['-created']
 
 
+"""
+    This table for:
+    - enabling us to add multible image fields inside the products.
+    - Resizing the Thumbnals' images to fit the standards.
+"""""
+
+
 class ProductThumbnails(models.Model):
     product = models.ForeignKey(
         Product, on_delete=models.CASCADE, related_name='Thumbnails')
     photo = models.ImageField()
 
-    # Resizing the Thumbnals' images to fit the standards.
     def save(self, *args, **kwargs):
         super(ProductThumbnails, self).save(*args, **kwargs)
         img = Image.open(self.photo.path) or Image.open(
