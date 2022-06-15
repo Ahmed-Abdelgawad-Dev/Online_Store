@@ -60,9 +60,7 @@ def register_user(request):
             created_user, many=False)
         return Response(serialized_user.data)
     except:
-        MSG = {
-            "Attention": "The username is already existed, please choose a nother username"}
-        return Response(MSG, HTTP_404_NOT_FOUND)
+        return Response({"Attention": "The username is already existed, please choose a nother username"}, HTTP_404_NOT_FOUND)
 
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
