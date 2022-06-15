@@ -3,17 +3,23 @@ from django.db import models
 from django.conf import settings
 from django.core.validators import MaxValueValidator, MinValueValidator
 from phonenumber_field.modelfields import PhoneNumberField
+from django.utils import timezone
 """
-- Some fields are camelCase as per Front-end team request
-
-- An abstract model to inherit from i/of DRY"""
+Notes:
+    - Some fields are camelCase and do not follow PEP8 as per Front-end team request
+    - An abstract model to inherit from i/of DRY.
+    - Whole API login in one app (api), this can be customized later + only users have a separate app & (Custome User Model).
+"""
 
 
 class BaseAbstractModel(models.Model):
+    # Override default {id} as the frontend uses this{_id} name.
     _id = models.AutoField(primary_key=True, editable=False)
     name = models.CharField(max_length=150, null=False, blank=False)
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                              on_delete=models.SET_NULL, null=True)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
 
     class Meta:
         abstract = True
@@ -21,8 +27,9 @@ class BaseAbstractModel(models.Model):
 
 class Product(BaseAbstractModel):
     brand = models.CharField(max_length=150, null=True, blank=True)
-    category = models.CharField(max_length=150, null=True, blank=True)
-    images = models.ImageField(blank=True)
+    # This could be in a nother table too in case of big store.
+    category = models.CharField(max_length=100, null=True, blank=True)
+    image = models.ImageField(blank=True)
     description = models.TextField(max_length=150)
 
     rating = models.PositiveIntegerField(
@@ -34,12 +41,10 @@ class Product(BaseAbstractModel):
     freeShipping = models.BooleanField(default=False)
     onSale = models.BooleanField(default=False)
     saleNumber = models.IntegerField(default=0, validators=[
-        MaxValueValidator(100000000000000000000000000000000),
+        MaxValueValidator(1000000),
         MinValueValidator(0)
     ])
     stockCount = models.IntegerField(null=True, blank=True, default=0)
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.name
@@ -48,18 +53,20 @@ class Product(BaseAbstractModel):
         ordering = ['-created']
 
 
-class Thumbnails(models.Model):
+class ProductThumbnails(models.Model):
     product = models.ForeignKey(
         Product, on_delete=models.CASCADE, related_name='Thumbnails')
     photo = models.ImageField()
 
-    # Resizing the Thumbnals' images to fit the standards | Requirements
+    # Resizing the Thumbnals' images to fit the standards.
     def save(self, *args, **kwargs):
-        super(Thumbnails, self).save(*args, **kwargs)
-        img = Image.open(self.photo.path)
+        super(ProductThumbnails, self).save(*args, **kwargs)
+        img = Image.open(self.photo.path) or Image.open(
+            'https://via.placeholder.com/300x*300x.jpg')
         if img.height > 1125 or img.width > 1125:
-            img.thumbnail((370, 370))
-        img.save(self.photo.path, quality=70, optimize=True)
+            # Changeable height and width
+            img.thumbnail((300, 300))
+        img.save(self.photo.path, quality=85, optimize=True)
 
     def __str__(self):
         return str(self.product.name)
@@ -79,8 +86,6 @@ class Order(BaseAbstractModel):
     paymentMethod = models.CharField(max_length=100)
     taxPrice = models.DecimalField(
         max_digits=5, decimal_places=2, null=True, blank=True)
-    shippingPrice = models.DecimalField(
-        max_digits=5, decimal_places=2, null=True, blank=True)
     totalPrice = models.DecimalField(
         max_digits=5, decimal_places=2, null=True, blank=True)
     isPaid = models.BooleanField(default=False)
@@ -88,7 +93,6 @@ class Order(BaseAbstractModel):
     isDelivered = models.BooleanField(default=False)
     deliveredAt = models.DateTimeField(
         auto_now_add=False, null=True, blank=True)
-    created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return str(self.created)

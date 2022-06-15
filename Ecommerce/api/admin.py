@@ -1,13 +1,17 @@
 from django.contrib import admin
-from .models import Product, Order, OrderItem, Review, ShippingAddress, Thumbnails
+from .models import Product, Order, OrderItem, Review, ShippingAddress, ProductThumbnails
 
 
-class ThumbnailsAdmin(admin.StackedInline):
-    model = Thumbnails
+class ProductThumbnailsAdmin(admin.StackedInline):
+    model = ProductThumbnails
 
 
 class ProductAdmin(admin.ModelAdmin):
-    inlines = [ThumbnailsAdmin]
+    inlines = [ProductThumbnailsAdmin]
+    list_display = ('name', 'price', 'rating', 'created',
+                    'updated', 'stockCount', 'reviewsCount', 'featured', 'freeShipping', 'onSale',)
+    list_filter = ('name', 'price', 'rating', 'stockCount',
+                   'reviewsCount', 'featured', 'freeShipping', 'onSale',)
 
     class Meta:
         model = Product
@@ -16,4 +20,4 @@ class ProductAdmin(admin.ModelAdmin):
 admin.site.register(Product, ProductAdmin)
 
 admin.site.register([Order, OrderItem, Review,
-                    ShippingAddress, Thumbnails])
+                    ShippingAddress])

@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     # My Apps
     'api.apps.ApiConfig',
     'users.apps.UsersConfig',
+    'orders.apps.OrdersConfig',
 ]
 
 MIDDLEWARE = [

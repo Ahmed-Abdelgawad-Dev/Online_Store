@@ -21,6 +21,21 @@ def get_user(request):
     return Response(serialized_user.data)
 
 
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+# User Object UPdate
+def update_user(request):
+    user = request.user
+    serialized_user = CustomUserSerializer(user, many=False)
+    user_data = request.data
+    user.email = user_data['email']
+    user.name = user_data['name']
+    if len(user.password) > 0:
+        user.password = make_password(user_data['password'])
+    user.save()
+    return Response(serialized_user.data)
+
+
 @api_view(['GET'])
 @permission_classes([IsAdminUser])
 # Users' list
