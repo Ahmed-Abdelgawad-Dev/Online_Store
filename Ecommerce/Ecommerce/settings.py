@@ -22,7 +22,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'phonenumber_field',
-    # 'django_rename_app',
     # My Apps
     'users.apps.UsersConfig',
     'products.apps.ProductsConfig',
@@ -94,7 +93,7 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
 }
 
-# PostgresSQL will be in the production.
+# PostgresSQL 4 Prod || alt similar DBs.
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',

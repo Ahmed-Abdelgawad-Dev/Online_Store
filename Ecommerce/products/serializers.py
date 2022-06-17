@@ -1,11 +1,30 @@
 from .models import Product
-from django.conf import settings
+from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer
+from .models import Review
+from orders.models import ShippingAddress
 
 
 class ProductSerializer(ModelSerializer):
+    reviews = serializers.SerializerMethodField(read_only=True)
+
     class Meta:
         model = Product
-        # __all__ is not recommended in general for a security reason but
-        # we can use it with the product | but not with users for example.
+        fields = '__all__'
+
+    def get_reviews(self, obj):
+        reviews = obj.review_set.all()
+        serializer = ReviewSerializer(reviews, many=True)
+        return serializer.data
+
+
+class ShippingAddressSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ShippingAddress
+        fields = '__all__'
+
+
+class ReviewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Review
         fields = '__all__'
