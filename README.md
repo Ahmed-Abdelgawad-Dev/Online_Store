@@ -63,5 +63,3 @@ DATABASE=....etc
         POST: '{order_id}/Delivered/'     | change the order status to delivered after delivery
         GET:  '{order_id}/'               | get order by order id
         POST: '{order_id}/paid/'          | change the payment status to paid
-
-``'
