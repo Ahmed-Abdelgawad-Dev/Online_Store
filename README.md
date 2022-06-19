@@ -43,6 +43,7 @@ DATABASE=....etc
 `
 ---
 ## Endpoints ##
+
 ```http request
         'users/'
         POST: 'login/' 
@@ -52,7 +53,7 @@ DATABASE=....etc
         POST: 'register_user/'
 
         'products/' 
-    GET:  ''                              |     get all products
+        GET:  ''                          |     get all products
         GET:  '/{id}'                     |     get a product
 
         'orders/'
