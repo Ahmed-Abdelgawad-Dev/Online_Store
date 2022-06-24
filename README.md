@@ -12,7 +12,7 @@ The API backend connects with sqlite database, but any other database can be use
 ***Schema.png*** is located in the root folder.
 ### Start ###
 Clone the repo:  ***git clone*** **https://github.com/Ahmed-Abdelgawad-Dev/Sprints_Online_Store.git**
-
+Use a virtual environment that you prefere.Could be pipenv | venv | conda. 
 Install the required packages:
 ```shell
 pip install -r requirements.txt
@@ -33,7 +33,7 @@ python manage.py runserver
 
 **.env is required  and must be inside .git ignore for security.**
 Here python dotenv package is used, feel free to use any other solution, also put any other credentials here like api secrets key ...etc.
-Example for the required `.env` could be as below and the values can be accessed :.
+Example for the required `.env` :.
 ```dotenv
 SECRET_KEY=django-insecure-9kr=#(!7bp2n65^e4i!5vm6e_3ux3qd7nb0jc2j@i7jyhw)6qa
 DATABASE=....etc
