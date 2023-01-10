@@ -38,9 +38,6 @@ Example for the required `.env` :.
 SECRET_KEY=django-insecure-9kr=#(!7bp2n65^e4i!5vm6e_3ux3qd7nb0jc2j@i7jyhw)6qa
 DATABASE=....etc
 ```
-### Release port 8000 if needed: Unix based OS ###
-`sudo lsof -t -i tcp:8000 | xargs kill -9
-`
 ---
 ## Endpoints ##
 
